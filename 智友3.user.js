@@ -1,4 +1,4 @@
-// ==UserScript==
+// ==用户脚本==
 // @name         智友3
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -578,7 +578,7 @@ const start = async function() {
         hexin=x2j(await hexin);
         //             jiage=xml2json(await jiage).root.data.tr.sort((a, b) =>{return a.td[12]>b.td[12]?-1:1});
         //             if($('select').val()==1){
-        order=x2j(await order).map((item,index) => [item.td[8],item.td[9],item.td[10],item.td[18],item.td[12],item.td[19],item.td[25]]);
+        order=x2j(await order).map((item,index) => [item.td[8],item.td[9],item.td[10],item.td[18],item.td[12],item.td[19],item.td[24]]);
         //             } else {
         //                 order=await order;
         //                 order=xml2json($.parseXML('<root>'+order.substring(order.indexOf('<tr sid='),order.indexOf('ds_djhz')-3).replace(/\\/g, "")+'</root>')).root.tr.map((item,index) => [item.td[5],item.td[6],item.td[7],item.td[12],item.td[21],item.td[13],item.td[14]]);

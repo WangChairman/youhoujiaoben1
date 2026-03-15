@@ -1,4 +1,4 @@
-// ==用户脚本==
+// ==UserScript==
 // @name         智友3
 // @namespace    http://tampermonkey.net/
 // @version      0.1

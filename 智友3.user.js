@@ -15,9 +15,6 @@ $(document).ready(function(){
     start();
 });
 const start = async function() {
-    // const 贵重编码=['21099009','21101078','21101005','21101037','21101048','21101001','21101151','21101152','21101153','21101041','21101184','21204035',
-    //             '20302218','21501063','50102188','50102138','50102199','50102217','50101296'];
-    //         JSON.stringify($('textarea')[0].value.split('\n').map(it => it.replace(/(\u80f6\u56ca)|(\u9897\u7c92)|(\u7cd6\u6d46)|(\u5206\u6563)|(\u7f13\u91ca)|(\u6eb6\u6db2)|(\u5408\u5242)|(\u542b\u7247)|(\u53e3\u670d\u6db2)|(\u53e3\u670d\u6eb6\u6db2)|(\u9732)|(\u6db2)|(\u818f)|(\u7247)|(\u4e38)/g, "")))
     const 五类编码=["氨咖黄敏","感冒灵","连花清瘟","小儿氨酚黄那敏","复方氨酚烷胺","复方氨酚烷胺","氯芬黄敏","小柴胡","复方板蓝根",
                 "维C银翘","双黄连","感冒清热","小儿氨酚烷胺","抗病毒","复方感冒灵","风寒感冒","板蓝根","感冒灵","氨酚伪麻美芬","氨麻美敏",
                 "氨麻苯美","酚麻美敏","氨麻美敏","感冒清热","感冒","感冒止咳","精制银翘解毒","连花清瘟","氨麻美敏（Ⅱ）",
@@ -36,17 +33,6 @@ const start = async function() {
                 "桂龙咳喘宁","桂龙咳喘宁","急支","橘红痰咳煎","橘红痰咳","咳特灵","克咳","克咳","强力枇杷","氢溴酸右美沙芬","小儿肺热咳喘","小儿肺热咳喘",
                 "小儿咳喘灵","小儿止咳","复方仔癀","金嗓子喉","铁笛","开喉剑喷雾剂","冬凌草","复方草珊瑚","复方冬凌草","复方甲氧那明","复方熊胆薄荷","黄氏响声",
                 "硫酸特布他林雾化吸入用","氢溴酸右美沙芬","金银花口服液","蒲地蓝",'二丁'];
-    //     const 五类编码=['20303334','20303343','20303359','10303053','10302058','10303023','10803010','10803031','10303061','10803051','10303113','10302003',
-    //                 '10303001','20303362','10303040','1030308','10303007','10303116','10501060','10501061','10501069','20302281','20303326','20303365','20302269',
-    //                 '10302109','10302022','10302021','10302023','20303028','20303282','20303239','20303225','20803136','20803004','10303084',
-    //                 '20803107','20803110','20803034','20803005','20303287','20303361','20303000','20303351','20303171','20303053',
-    //                 '20803152','20303341','20303334','20303062','20303202','20303234','20303335','20303025','20303227','20803029',
-    //                 '20303004','20303046','20303012','20303189','20302047','20303238','20303047','20303087','20301316','20303000',
-    //                 '20304055','20303286','20303058','20303293','20303307','20302218','21201006','21603005','20304033','20304010',
-    //                 '20301024','10501008','10501046','10501016','10799019','20803016','20803003','20803149','20302281','20803137',
-    //                 '20803131','20803020','20803013','20803067','20803113','20803151','20803139','20803125','20803023','20803144',
-    //                 '20803036','20803135','11001031','20803097','10803041','10303039','10803046','20303345','20303215','20803102',
-    //                 '20803115','10303095'];
     //佳和
     var org='O36AZ790FID';
     var whid='K36AZ7A6TF1';
@@ -59,37 +45,24 @@ const start = async function() {
     const loginurl='http://61.183.78.30:810/';
     const 消杀编码=['50503129','50503128','50503123','50103595','50103630','50103532','50103611','50103596','50103615','50699100',
                 '50699099','50103632','50102056'];
-    const checkurl=loginurl+'formservice?service=openDataSet&_pid=8yOqHilJQYBZDFTq7_y6tmq7cmkpUTPSTD9JI4csS-BJGtMmgOFu9z9ksyt37nlpuHC7LbYcV4A1scOpiTH5qPkj64KR0weRlCv7yZEY6g29O_9DwQnslqNg19PqaUpQZ1W_8l0OfbI1mFS2_08ODKaIHwcqfXXveMaooCt7BxA&_formid=3hfbjilfcq317fsn&_tranid=06a71feb-9e4a-4c62-a1fd-cdd4b2fc4254&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=26p1xb7e40d669pz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22@sel_staff.select.openparam%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22con%22%3A%22%25%22%2C%22conall%22%3A%22%25%25%22%2C%22isRetail%22%3A%22Y%22%7D%7D';
-    const warnurl=loginurl+'formservice?service=getWarns&_pid=FmbkVe4imobnb2-Z8SVWsYMiNZ2B-SS910X6pQ01H3F9kYIqoLRKjhOPC_vrQz1qld8LnNKl7lpT2vesF6967SuzxGeR2aXFL25C7Fq99jXtsHoDOGiivuhRIO1p-DNGSwyiJBGQMvi1posjpkBL5-nefgc1zwhRZhB7Dzkx1dI?_pid=FmbkVe4imobnb2-Z8SVWsYMiNZ2B-SS910X6pQ01H3F9kYIqoLRKjhOPC_vrQz1qld8LnNKl7lpT2vesF6967SuzxGeR2aXFL25C7Fq99jXtsHoDOGiivuhRIO1p-DNGSwyiJBGQMvi1posjpkBL5-nefgc1zwhRZhB7Dzkx1dI&_rnd=16343718155679.481301872129798&content=null';
-    const modifyurl=loginurl+'formservice?service=openDataSet&_pid=FmbkVe4imobnb2-Z8SVWsYMiNZ2B-SS910X6pQ01H3F9kYIqoLRKjhOPC_vrQz1qld8LnNKl7lpT2vesF6967SuzxGeR2aXFL25C7Fq99jXtsHoDOGiivuhRIO1p-DNGSwyiJBGQMvi1posjpkBL5-nefgc1zwhRZhB7Dzkx1dI&_formid=597zgrtl8vh90wwr&_tranid=07ae3f85-38df-4935-b723-096fc283463c&_moduleid=2k7rp7e252ww5bkn&_action=new&content=%7B%22openmode%22%3A%22service%22%2C%22openparam%22%3A%22WarnDataSetOpenService%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22warnid%22%3A%22WMTCCO9YBGF%22%7D%7D';
-    const orderurl2=loginurl+'formservice?service=openDataSet&_pid=N4Ej6m-RjrUFn0QfBMoj0VdBi4QPODj1R_12azn8z2nqCvidfiYS1kyTH5EPUvp86PtAQdxPlDrIsxNACpYVFE49RDZhtXhxAcMAn8doQov9djVIvVnmyXvlT6npVCwJ3VtKKwMbKuu-7znmQJQcrr23m021xEouyUPRBLVm1TE&_formid=4yxky8c10wxkmpyp&_tranid=c21fb5ab-2a8a-49eb-a4d9-0d76bd37d186&_moduleid=6iloe4dsbjg1q6az&_action=new&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_mdqh_xs%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22entid%22%3A%22E2CEEM27O7T%22%2C%22orgid%22%3A%22'+ org +'%22%7D%7D';
-    const orderurl=loginurl+'formservice?service=openDataSet&_pid=6KRc49Bh5JlOppd3dse1ZTfkuKWXR41RV62dif3-DDzq9yYEr028KN-zQLXxeG-Oeb4p-HRiQHtNxQ_hfSaJgV1z7inlYGZZIr9LP55crX2I6eFZhstsG-HKZ2fxLTMMuUUtQK860Vy9-7qg&_formid=4yxky8c10wxkmpyp&_tranid=74f5dbe0-bbbe-4d13-8b80-3951e3b5c430&_moduleid=6iloe4dsbjg1q6az&_action=new&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_mdqh_xs%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22entid%22%3A%22E2CEEM27O7T%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22qhbz%22%3A%22HYYY%22%7D%7D';
-    const stockurl=loginurl+'formservice?service=openDataSet&_pid=JODapwUNR4Dx57e2ZJoNo1n77476csZjelMC9DAr-ZnNZ4EJfcJZ1zyWD-coafM8yidhma6moHf4_ZPlouWQX1vY0zTvhDkDj7BKhFyZ_MmfWzmtB1wbdpp6K5xbBL2Ym4LG3tkFHTkgRpnehiUWixjXfZangRGWSJP8Pombuus&_formid=3hfbjilfcq317fsn&_tranid=56b19dc4-5266-49cc-85ca-670ddcebab60&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=26p1xb7e40d669pz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22@sel_goods.select.openparam%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A100%2C%22variables%22%3A%7B%22con%22%3A%22{code}%25%22%2C%22conall%22%3A%22%25{code}%25%22%2C%22conreal%22%3A%22{code}%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22isdbjf%22%3A%22N%22%2C%22ishyr%22%3A%22Y%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
-    const saleurl=loginurl+'formservice?service=openDataSet&_pid=ymZwp-qD4Hv0Zw4CHks-U-pZqCzLp4vA1R12rOpl1-tNlKpUWUYi7Z5MAlnhpohI_0tlQ-KDiJX-xlpTFMgBOKB36LpwcY7KEjICqS1c_QKr6SyMjzYx36Kx0fSoBpiBN0yLqhGONrzCtV6V9ctDgllL58d6g_hqDgvHL4-moZM&_formid=46u5orw586cyjfp4&_tranid=904aab1b-4107-496c-8c98-23f53e22de5a&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=6qfl3fl7cjb7lm74&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query6_ret%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22GrSchId%22%3A0%2C%22businessid%22%3A%22%22%2C%22enddate%22%3A%22{enddate}%22%2C%22goodsid%22%3A%22%22%2C%22k_ishxpz%22%3A%22N%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22staffid%22%3A%22%22%2C%22startdate%22%3A%22{startdate}%22%7D%7D';
-    const sale2url=loginurl+'formservice?service=openDataSet&_pid=ymZwp-qD4Hv0Zw4CHks-U-pZqCzLp4vA1R12rOpl1-tNlKpUWUYi7Z5MAlnhpohI_0tlQ-KDiJX-xlpTFMgBOKB36LpwcY7KEjICqS1c_QKr6SyMjzYx36Kx0fSoBpiBN0yLqhGONrzCtV6V9ctDgllL58d6g_hqDgvHL4-moZM&_formid=46u5orw586cyjfp4&_tranid=904aab1b-4107-496c-8c98-23f53e22de5a&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=6qfl3fl7cjb7lm74&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query6_tr%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22GrSchId%22%3A0%2C%22businessid%22%3A%22%22%2C%22enddate%22%3A%22{date}%22%2C%22goodsid%22%3A%22%22%2C%22k_ishxpz%22%3A%22N%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22staffid%22%3A%22%22%2C%22startdate%22%3A%22{date}%22%7D%7D';
-    const allstockurl= loginurl+'formservice?service=openDataSet&_pid=ymZwp-qD4Hv0Zw4CHks-U-pZqCzLp4vA1R12rOpl1-tNlKpUWUYi7Z5MAlnhpohI_0tlQ-KDiJX-xlpTFMgBOKB36LpwcY7KEjICqS1c_QKr6SyMjzYx36Kx0fSoBpiBN0yLqhGONrzCtV6V9ctDgllL58d6g_hqDgvHL4-moZM&_formid=1rr5nw258wekx31j&_tranid=e4af3955-fa79-485b-995c-f6732f66a832&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=2joosf0w7sxyp8kn&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22sel_goods_batch%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A1000%2C%22variables%22%3A%7B%22businessid%22%3A%22%22%2C%22classid%22%3A%22%22%2C%22contactid%22%3A%22%22%2C%22goodsid%22%3A%22{code}%22%2C%22isfsp%22%3A%22N%22%2C%22iskc%22%3A%22N%22%2C%22jgcl%22%3A%22%22%2C%22k_isfml%22%3A%22N%22%2C%22k_jysx%22%3A%22%22%2C%22k_wllb%22%3A%22%22%2C%22orgid%22%3A%22%22%7D%7D';
-    const fangyiurl='http://gophar.cdfortis.com/HMRegisterStore/checkhm/queryFeverInfoList';
-    const fangyi1url='https://sly.chs-drgs.cn/web/purc/reg/query';
-    const chufangurl='https://apigw.91jkys.com/api/drugstore/1.0/prescription_page';
-    const guazhanglisturl=loginurl+'formservice?service=openDataSet&_pid=N4Ej6m-RjrUFn0QfBMoj0VdBi4QPODj1R_12azn8z2nqCvidfiYS1kyTH5EPUvp86PtAQdxPlDrIsxNACpYVFE49RDZhtXhxAcMAn8doQov9djVIvVnmyXvlT6npVCwJ3VtKKwMbKuu-7znmQJQcrr23m021xEouyUPRBLVm1TE&_formid=4yxky8c10wxkmpyp&_tranid=c21fb5ab-2a8a-49eb-a4d9-0d76bd37d186&_moduleid=6iloe4dsbjg1q6az&_action=new&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22@@draft.restore.list%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22datatype%22%3A%221%22%2C%22formid%22%3A%224yxky8c10wxkmpyp%22%2C%22orgid%22%3A%22'+ org +'%22%7D%7D';
-    const guazhangurl=loginurl+'formservice?service=db.uniqueValue&_pid=N4Ej6m-RjrUFn0QfBMoj0VdBi4QPODj1R_12azn8z2nqCvidfiYS1kyTH5EPUvp86PtAQdxPlDrIsxNACpYVFE49RDZhtXhxAcMAn8doQov9djVIvVnmyXvlT6npVCwJ3VtKKwMbKuu-7znmQJQcrr23m021xEouyUPRBLVm1TE&_formid=4yxky8c10wxkmpyp&_tranid=c21fb5ab-2a8a-49eb-a4d9-0d76bd37d186&_moduleid=6iloe4dsbjg1q6az&_action=new&_rnd=16335728168469.03583524399404&content=%7B%22sql%22%3A%22@@draft.restore.entity%22%2C%22variables%22%3A%7B%22billno%22%3A{value}%7D%7D';
-    const shopstockurl= loginurl+'formservice?service=openDataSet&_pid=FmbkVe4imobnb2-Z8SVWsYMiNZ2B-SS910X6pQ01H3F9kYIqoLRKjhOPC_vrQz1qld8LnNKl7lpT2vesF6967SuzxGeR2aXFL25C7Fq99jXtsHoDOGiivuhRIO1p-DNGSwyiJBGQMvi1posjpkBL5-nefgc1zwhRZhB7Dzkx1dI&_formid=02uaoqev8kpkxo7h&_tranid=1f12797c-bd0a-4945-868d-78af9cb65198&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=38rhz4ca6pmlkoul&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A5000%2C%22variables%22%3A%7B%22days%22%3A%220%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22goodsid%22%3A%22%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
-    const diaobourl=loginurl+'formservice?service=openDataSet&_pid=K4s5blYlqfTZ7P-GZlgjcG7dMWZKIkB0DK9xE684avtGEvl9olnZPjBCxHZN7qSnX5s-BtiLOLYrGSAUW4hx2BuSFuK_mGWTym-mf8j1GcTlCFblMSHZF1VhVrJg-LUfOgmxHLxjtEhMFH05JeaQb_EOrQaWcZsf5KueLymfmrM&_formid=634jgx91abzrstxe&_tranid=fdfdef6f-e8cc-47e8-b11d-277ea2ce836b&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=40xe1unkcqb44200&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_djhz_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22EndDate%22%3A%222021-10-17%22%2C%22StartDate%22%3A%222021-10-15%22%2C%22billcode%22%3A%22%25%22%2C%22billstate%22%3A0%2C%22caozy%22%3A%22%22%2C%22deptid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22orgid%22%3A%22%22%2C%22staffid%22%3A%22%22%7D%7D';
-    const diaobo2url=loginurl+'formservice?service=openDataSet&_pid=K4s5blYlqfTZ7P-GZlgjcG7dMWZKIkB0DK9xE684avtGEvl9olnZPjBCxHZN7qSnX5s-BtiLOLYrGSAUW4hx2BuSFuK_mGWTym-mf8j1GcTlCFblMSHZF1VhVrJg-LUfOgmxHLxjtEhMFH05JeaQb_EOrQaWcZsf5KueLymfmrM&_formid=634jgx91abzrstxe&_tranid=fdfdef6f-e8cc-47e8-b11d-277ea2ce836b&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=40xe1unkcqb44200&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_djmx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22EndDate%22%3A%22{enddate}%22%2C%22StartDate%22%3A%22{startdate}%22%2C%22billcode%22%3A%22%25%22%2C%22billstate%22%3A0%2C%22caozy%22%3A%22%22%2C%22deptid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22orgid%22%3A%22%22%2C%22staffid%22%3A%22%22%7D%7D';
-    const qinghuourl=loginurl+'formservice?service=openDataSet&_pid=K4s5blYlqfTZ7P-GZlgjcG7dMWZKIkB0DK9xE684avtGEvl9olnZPjBCxHZN7qSnX5s-BtiLOLYrGSAUW4hx2BuSFuK_mGWTym-mf8j1GcTlCFblMSHZF1VhVrJg-LUfOgmxHLxjtEhMFH05JeaQb_EOrQaWcZsf5KueLymfmrM&_formid=1vll0l3b35x1qx63&_tranid=00e20889-4d3c-4d5b-aebe-26f8df8bef47&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=0trsdeq5blrr7cyz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_queryHz_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22caozy%22%3A%22%22%2C%22dczt%22%3A%22%E5%85%A8%E9%83%A8%22%2C%22deptid%22%3A%22%22%2C%22endDate%22%3A%22{enddate}%22%2C%22jhlx%22%3A%22%E5%85%A8%E9%83%A8%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22salemanid%22%3A%22%22%2C%22startDate%22%3A%22{startdate}%22%7D%7D';
-    const qinghuo2url=loginurl+'formservice?service=openDataSet&_pid=K4s5blYlqfTZ7P-GZlgjcG7dMWZKIkB0DK9xE684avtGEvl9olnZPjBCxHZN7qSnX5s-BtiLOLYrGSAUW4hx2BuSFuK_mGWTym-mf8j1GcTlCFblMSHZF1VhVrJg-LUfOgmxHLxjtEhMFH05JeaQb_EOrQaWcZsf5KueLymfmrM&_formid=1vll0l3b35x1qx63&_tranid=00e20889-4d3c-4d5b-aebe-26f8df8bef47&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=0trsdeq5blrr7cyz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_queryMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22billno%22%3A{no}%7D%7D';
-    const zongbuurl=loginurl+'formservice?service=openDataSet&_pid=6TKd2wX6YTEHeo_oIEnUjX7LPT6NnbbpT_GUg9Ckx_cNWgfVBuKlCxEiMAXqR08R7y1wyFXhwt92w-66pPwCnqArd9p5xQLavebauD8PgripOpkf7XPLwAjSzegDi1KFdcqWcwonUHEOQ5RUmeItEmO0js3H4RlHYHIavVeigjI&_formid=28owxbnm5f13nmk0&_tranid=d6188d77-7fd0-42bc-b3e5-841d126c9f8a&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22K2CZ4S2KN5B%22%7D%7D';
-    const tuihuourl=loginurl+'formservice?service=openDataSet&_pid=Utodol2uy-_LBt3PCZ3IwbFsIYKxX2lgPtT7ggI-wz24XhPeBxbrg2aoS409q-byZzUmXxfx0DRfVzysFHwNos9_2zqoT1peOrhf9_ht9LjDICjkrRvwxt2wWx7LIjJRhouJyzuWZzDsVKNriGfOSrLmn52RWOEcYJlTVpQxc9c&_formid=28owxbnm5f13nmk0&_tranid=d2a36179-b653-47fd-bc24-c7ff7a341f7b&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22K2UCZR3QGA1%22%7D%7D';
-    const rukuurl=loginurl+'formservice?service=openDataSet&_pid=SYq40cwS4oqKKCESy6NGAIqO7nMk88IlkeXCOGuABbNTvuPNfhcpvS0yvZmRavn9oDq0ANl2l2_xXxZr6hNfaZPH_uuMK9YfmpGZXRbtnB-XcsV9eWaKFNID8t7jZbS0bkZee9eQZWMQFKVHLndIxSPc6CthvqgdmPAcOz9C1Vc&_formid=3d54uuwfatpvdj7m&_tranid=4e6b660b-b3a9-4551-9985-9799364ab190&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=4i6wsbxm6z4mk8ps&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_djmx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22EndDate%22%3A%222021-10-19%22%2C%22StartDate%22%3A%222021-10-01%22%2C%22billcode%22%3A%22%25%22%2C%22caozy%22%3A%22%22%2C%22deptid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22orgid%22%3A%22%22%2C%22staffid%22%3A%22%22%7D%7D';
-    const xiaoqiurl=loginurl+'formservice?service=openDataSet&_pid=Utodol2uy-_LBt3PCZ3IwbFsIYKxX2lgPtT7ggI-wz24XhPeBxbrg2aoS409q-byZzUmXxfx0DRfVzysFHwNos9_2zqoT1peOrhf9_ht9LjDICjkrRvwxt2wWx7LIjJRhouJyzuWZzDsVKNriGfOSrLmn52RWOEcYJlTVpQxc9c&_formid=28owxbnm5f13nmk0&_tranid=d2a36179-b653-47fd-bc24-c7ff7a341f7b&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
-    const ziliaourl=loginurl+'formservice?service=openDataSet&_pid=UCVXrxXQ3k0to5wfAst4A74ZTW142Q0QG7kMaVWWDFpcUYxTJ28EUDe0QyQj8xVVGfZABh_Vw9b0VXmoAkz6NIMduldI2nGw6pvVvqutwTyk06qT6YDELpPSAmlpO21G2NIncIY0vtRNrrAYplnmTfUiK-mZIQGwugZZ_w-IJJg&_formid=665sc1dcb4aex8at&_tranid=cfee7d80-5ae9-4ea7-add7-917a27932361&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=4vfiptyrchm7z1vp&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_sel_goods%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22con%22%3A%22%25%22%2C%22conall%22%3A%22%25%25%22%2C%22treecode%22%3A%22%25%25%22%7D%7D';
-    const bibeiurl=loginurl+'formservice?service=openDataSet&_pid=UCVXrxXQ3k0to5wfAst4A74ZTW142Q0QG7kMaVWWDFpcUYxTJ28EUDe0QyQj8xVVGfZABh_Vw9b0VXmoAkz6NIMduldI2nGw6pvVvqutwTyk06qT6YDELpPSAmlpO21G2NIncIY0vtRNrrAYplnmTfUiK-mZIQGwugZZ_w-IJJg&_formid=4d1ikk8xcrzqo6xp&_tranid=4b5fb7c9-993a-4aa6-b08b-e99aeb42c0c8&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=047e88zmc2cayuxp&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_querymx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22orgid%22%3A%22'+ org +'%22%7D%7D';
-    const hexinurl=loginurl+'formservice?service=openDataSet&_pid=UCVXrxXQ3k0to5wfAst4A74ZTW142Q0QG7kMaVWWDFpcUYxTJ28EUDe0QyQj8xVVGfZABh_Vw9b0VXmoAkz6NIMduldI2nGw6pvVvqutwTyk06qT6YDELpPSAmlpO21G2NIncIY0vtRNrrAYplnmTfUiK-mZIQGwugZZ_w-IJJg&_formid=1o2ghavs3anhaof1&_tranid=dc845741-e12f-4a86-af59-c45895f2fac2&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=58mkcmlf5hkk7125&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_querymx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22orgid%22%3A%22'+ org +'%22%7D%7D';
-    const jiageurl=loginurl+'formservice?service=openDataSet&_pid=Fo9e_Wy4aEaybIPWl9KHBKoLnfnnNltB0_9t36KKEsgQ_joAxEX1kkJGiRLwAN8HE6c0All5-PYa6-Qpn1AIB2KGVH5Wo3n98XENbUJ_RJeM8yq7dArmVjYPU2KWKAvBrPRo24H2v5Qlv79uvyQeXPhCenzxZEQ8IhDZz-LNNQ8&_formid=3zg5jk2y89y8on5b&_tranid=5d402b03-59cf-4f4b-b758-a1fc6d31aa8b&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=a48pj6nm9r84kayv&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_zysql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A10000%2C%22variables%22%3A%7B%22brandname%22%3A%22%22%2C%22businessid%22%3A%22%22%2C%22classid%22%3A%22%22%2C%22dates%22%3A%222021-11-13%22%2C%22enddate%22%3A%222021-11-13%22%2C%22goodsid%22%3A%22%22%2C%22isdongp%22%3A%22N%22%2C%22locatcode%22%3A%22%25%22%2C%22orgid%22%3A%22O2CEEM27IL1%22%2C%22startdate%22%3A%222021-11-01%22%2C%22whid%22%3A%22%22%7D%7D';
-    const allurl=loginurl+'formservice?service=openDataSet&_pid=ymZwp-qD4Hv0Zw4CHks-U-pZqCzLp4vA1R12rOpl1-tNlKpUWUYi7Z5MAlnhpohI_0tlQ-KDiJX-xlpTFMgBOKB36LpwcY7KEjICqS1c_QKr6SyMjzYx36Kx0fSoBpiBN0yLqhGONrzCtV6V9ctDgllL58d6g_hqDgvHL4-moZM&_formid=1rr5nw258wekx31j&_tranid=e4af3955-fa79-485b-995c-f6732f66a832&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=2joosf0w7sxyp8kn&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22sel_goods_batch%22%2C%22pageno%22%3A{no}%2C%22pagesize%22%3A10000%2C%22variables%22%3A%7B%22businessid%22%3A%22%22%2C%22classid%22%3A%22%22%2C%22contactid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22isfsp%22%3A%22N%22%2C%22iskc%22%3A%22N%22%2C%22jgcl%22%3A%22%22%2C%22k_isfml%22%3A%22N%22%2C%22k_jysx%22%3A%22%22%2C%22k_wllb%22%3A%22%22%2C%22orgid%22%3A%22{org}%22%7D%7D';
-    const barurl='http://www.t-x-m.com/barcode.asp?bc1={code}&bc2=10&bc3=3.5&bc4=1&bc9=1&bc5=11&bc6=11&bc7=Arial&bc8=15';
-    const zhixiaourl=loginurl+'formservice?service=openDataSet&_pid=knx-PHI3nvnbgT4a-aaPzfEoFm7sKIeron3rdBnx3Ebb_Mybdr45Sq1LN8GdPw5FWbM4BZnfy5D7VASzI1K6FsUcC6f4XLI0b9OjCBO0w1dCpaXnaPOjTuxg_AFJwb3sXcclMwcR34ik9LW7HUcAXqOLMPa3zXFEYbgn4WD-We4&_formid=02uaoqev8kpkxo7h&_tranid=5d69a518-0a30-4655-89bd-77a9910d0b7a&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=38rhz4ca6pmlkoul&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A5000%2C%22variables%22%3A%7B%22days%22%3A%22270%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22goodsid%22%3A%22%22%2C%22whid%22%3A%22K36AZ7A6TF1%22%7D%7D';
-    //http://www.free-barcode.com/cn/barcode.asp
+    const checkurl=loginurl+'formservice?service=openDataSet&_formid=3hfbjilfcq317fsn&_tranid=06a71feb-9e4a-4c62-a1fd-cdd4b2fc4254&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=26p1xb7e40d669pz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22@sel_staff.select.openparam%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22con%22%3A%22%25%22%2C%22conall%22%3A%22%25%25%22%2C%22isRetail%22%3A%22Y%22%7D%7D';
+    const modifyurl=loginurl+'formservice?service=openDataSet&_formid=597zgrtl8vh90wwr&_tranid=07ae3f85-38df-4935-b723-096fc283463c&_moduleid=2k7rp7e252ww5bkn&_action=new&content=%7B%22openmode%22%3A%22service%22%2C%22openparam%22%3A%22WarnDataSetOpenService%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22warnid%22%3A%22WMTCCO9YBGF%22%7D%7D';
+    const orderurl=loginurl+'formservice?service=openDataSet&_formid=4yxky8c10wxkmpyp&_tranid=74f5dbe0-bbbe-4d13-8b80-3951e3b5c430&_moduleid=6iloe4dsbjg1q6az&_action=new&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_mdqh_xs%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22entid%22%3A%22E2CEEM27O7T%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22qhbz%22%3A%22HYYY%22%7D%7D';
+    const stockurl=loginurl+'formservice?service=openDataSet&_formid=3hfbjilfcq317fsn&_tranid=56b19dc4-5266-49cc-85ca-670ddcebab60&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=26p1xb7e40d669pz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22@sel_goods.select.openparam%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A100%2C%22variables%22%3A%7B%22con%22%3A%22{code}%25%22%2C%22conall%22%3A%22%25{code}%25%22%2C%22conreal%22%3A%22{code}%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22isdbjf%22%3A%22N%22%2C%22ishyr%22%3A%22Y%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
+    const saleurl=loginurl+'formservice?service=openDataSet&_formid=46u5orw586cyjfp4&_tranid=904aab1b-4107-496c-8c98-23f53e22de5a&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=6qfl3fl7cjb7lm74&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query6_ret%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22GrSchId%22%3A0%2C%22businessid%22%3A%22%22%2C%22enddate%22%3A%22{enddate}%22%2C%22goodsid%22%3A%22%22%2C%22k_ishxpz%22%3A%22N%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22staffid%22%3A%22%22%2C%22startdate%22%3A%22{startdate}%22%7D%7D';
+    const sale2url=loginurl+'formservice?service=openDataSet&_formid=46u5orw586cyjfp4&_tranid=904aab1b-4107-496c-8c98-23f53e22de5a&_moduleid=67rhsk8lcvdypqll&_action=new&_progid=6qfl3fl7cjb7lm74&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query6_tr%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22GrSchId%22%3A0%2C%22businessid%22%3A%22%22%2C%22enddate%22%3A%22{date}%22%2C%22goodsid%22%3A%22%22%2C%22k_ishxpz%22%3A%22N%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22staffid%22%3A%22%22%2C%22startdate%22%3A%22{date}%22%7D%7D';
+    const allstockurl= loginurl+'formservice?service=openDataSet&_formid=1rr5nw258wekx31j&_tranid=e4af3955-fa79-485b-995c-f6732f66a832&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=2joosf0w7sxyp8kn&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22sel_goods_batch%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A1000%2C%22variables%22%3A%7B%22businessid%22%3A%22%22%2C%22classid%22%3A%22%22%2C%22contactid%22%3A%22%22%2C%22goodsid%22%3A%22{code}%22%2C%22isfsp%22%3A%22N%22%2C%22iskc%22%3A%22N%22%2C%22jgcl%22%3A%22%22%2C%22k_isfml%22%3A%22N%22%2C%22k_jysx%22%3A%22%22%2C%22k_wllb%22%3A%22%22%2C%22orgid%22%3A%22%22%7D%7D';
+    const shopstockurl= loginurl+'formservice?service=openDataSet&_formid=02uaoqev8kpkxo7h&_tranid=1f12797c-bd0a-4945-868d-78af9cb65198&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=38rhz4ca6pmlkoul&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A5000%2C%22variables%22%3A%7B%22days%22%3A%220%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22goodsid%22%3A%22%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
+    const diaobo2url=loginurl+'formservice?service=openDataSet&_formid=634jgx91abzrstxe&_tranid=fdfdef6f-e8cc-47e8-b11d-277ea2ce836b&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=40xe1unkcqb44200&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_djmx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A500%2C%22variables%22%3A%7B%22EndDate%22%3A%22{enddate}%22%2C%22StartDate%22%3A%22{startdate}%22%2C%22billcode%22%3A%22%25%22%2C%22billstate%22%3A0%2C%22caozy%22%3A%22%22%2C%22deptid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22orgid%22%3A%22%22%2C%22staffid%22%3A%22%22%7D%7D';
+    const qinghuourl=loginurl+'formservice?service=openDataSet&_formid=1vll0l3b35x1qx63&_tranid=00e20889-4d3c-4d5b-aebe-26f8df8bef47&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=0trsdeq5blrr7cyz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_queryHz_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22caozy%22%3A%22%22%2C%22dczt%22%3A%22%E5%85%A8%E9%83%A8%22%2C%22deptid%22%3A%22%22%2C%22endDate%22%3A%22{enddate}%22%2C%22jhlx%22%3A%22%E5%85%A8%E9%83%A8%22%2C%22orgid%22%3A%22'+ org +'%22%2C%22salemanid%22%3A%22%22%2C%22startDate%22%3A%22{startdate}%22%7D%7D';
+    const qinghuo2url=loginurl+'formservice?service=openDataSet&_formid=1vll0l3b35x1qx63&_tranid=00e20889-4d3c-4d5b-aebe-26f8df8bef47&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=0trsdeq5blrr7cyz&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_queryMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22billno%22%3A{no}%7D%7D';
+    const zongbuurl=loginurl+'formservice?service=openDataSet&_formid=28owxbnm5f13nmk0&_tranid=d6188d77-7fd0-42bc-b3e5-841d126c9f8a&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22K2CZ4S2KN5B%22%7D%7D';
+    const tuihuourl=loginurl+'formservice?service=openDataSet&_formid=28owxbnm5f13nmk0&_tranid=d2a36179-b653-47fd-bc24-c7ff7a341f7b&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22K2UCZR3QGA1%22%7D%7D';
+    const xiaoqiurl=loginurl+'formservice?service=openDataSet&_formid=28owxbnm5f13nmk0&_tranid=d2a36179-b653-47fd-bc24-c7ff7a341f7b&_moduleid=5u329pyn31m4a6wb&_action=new&_progid=00h2bcd3aki24ueo&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_selectMx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22goodscode%22%3A%22%25%25%22%2C%22whid%22%3A%22'+ whid +'%22%7D%7D';
+    const bibeiurl=loginurl+'formservice?service=openDataSet&_formid=4d1ikk8xcrzqo6xp&_tranid=4b5fb7c9-993a-4aa6-b08b-e99aeb42c0c8&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=047e88zmc2cayuxp&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_querymx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22orgid%22%3A%22'+ org +'%22%7D%7D';
+    const hexinurl=loginurl+'formservice?service=openDataSet&_formid=1o2ghavs3anhaof1&_tranid=dc845741-e12f-4a86-af59-c45895f2fac2&_moduleid=6iloe4dsbjg1q6az&_action=new&_progid=58mkcmlf5hkk7125&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_querymx_sql%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A-1%2C%22variables%22%3A%7B%22orgid%22%3A%22'+ org +'%22%7D%7D';
+    const allurl=loginurl+'formservice?service=openDataSet&_formid=1rr5nw258wekx31j&_tranid=e4af3955-fa79-485b-995c-f6732f66a832&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=2joosf0w7sxyp8kn&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22sel_goods_batch%22%2C%22pageno%22%3A{no}%2C%22pagesize%22%3A10000%2C%22variables%22%3A%7B%22businessid%22%3A%22%22%2C%22classid%22%3A%22%22%2C%22contactid%22%3A%22%22%2C%22goodsid%22%3A%22%22%2C%22isfsp%22%3A%22N%22%2C%22iskc%22%3A%22N%22%2C%22jgcl%22%3A%22%22%2C%22k_isfml%22%3A%22N%22%2C%22k_jysx%22%3A%22%22%2C%22k_wllb%22%3A%22%22%2C%22orgid%22%3A%22{org}%22%7D%7D';
+    const zhixiaourl=loginurl+'formservice?service=openDataSet&_formid=02uaoqev8kpkxo7h&_tranid=5d69a518-0a30-4655-89bd-77a9910d0b7a&_moduleid=2k7rp7e252ww5bkn&_action=new&_progid=38rhz4ca6pmlkoul&content=%7B%22openmode%22%3A%22sql%22%2C%22openparam%22%3A%22uf_query%22%2C%22pageno%22%3A1%2C%22pagesize%22%3A5000%2C%22variables%22%3A%7B%22days%22%3A%22270%22%2C%22dbtype%22%3A%22Microsoft%20SQL%20Server%22%2C%22goodsid%22%3A%22%22%2C%22whid%22%3A%22K36AZ7A6TF1%22%7D%7D';
 
     // $('html').empty()
     // $('html').append("<head></head><body></body>")
@@ -194,7 +167,6 @@ const start = async function() {
     }
 
     const check = async () => {
-        //     var dateDiff =Math.floor((end.getTime()-start.getTime())/1000);
         var datas=xml2json(await getAjax(checkurl));
         if(datas.errmsg){
             if(datas&&datas.errmsg=="当前用户没有登录"){
@@ -300,9 +272,7 @@ const start = async function() {
     }
 
     const show2 = async () =>{
-        // addTableRows("#table1",['编号','姓名','时间','四类药','数量']);
         var etr=addTableRows("#table1",['编号','姓名','时间','药品名','规格','数量']);
-        // addTableRows("#table3",['---','','感冒药核对', '---']);
         var date=$('#date1').val(),datas=[],count=0,count1=0;
         var reservation=`${date} - ${date}`;
         var sale=xml2json(await getAjax(saleurl.replace(/{enddate}/g,$('#date1').val()).replace(/{startdate}/g,$('#date1').val()))).root.data.tr,sale2;
@@ -313,38 +283,24 @@ const start = async function() {
         if(sale2) datas=datas.concat(sale2);
         var fns=[];
         var goods=JSON.parse(localStorage.getItem('9999-99-99')).goods;
-        //             0goodscode:1goodsname:2goodsspec:3manufacturer:4BarCode:5GoodsId:6LastPurP:7lshj:8IsPres:9is_mhj:10isdj:
         if(datas) datas=datas.reverse();
         for(const data of datas){
             if (data.td[12][0]!='1'&&data.td[12][0]!='2'&&data.td[12][0]!='5') continue;
             var good= goods.find((x, index,self)=> x[0]==data.td[12]);
             if(五类编码.find((x, index,self)=> {return data.td[13].indexOf(x)>-1})||(good&&(good[9]=='Y'||good[10]=='Y'))) {
                 count+=parseInt(data.td[4]);
-                // addTableRows("#table1",[data.td[12],data.td[25],data.td[7],data.td[13],data.td[4]]);
             }
             if(good){
-                //                 if(good[9]=='Y'||good[10]=='Y'||五类编码.includes(data.td[12])) {
-                //                     count+=parseInt(data.td[4]);
-                //                     addTableRows("#table1",[data.td[12],data.td[25],data.td[7],data.td[13],data.td[4]]);
-                //                 };
                 if(good[8]=='Y') addTableRows("#table1",[data.td[12],data.td[25],data.td[7],data.td[13],data.td[14],data.td[4]]);
                 continue;
             }
             fns.push((async () => {
-                // var row=addTableRows("#table1",[data.td[12],'','','','']);
                 var row1=addTableRows("#table1",[data.td[12],'','','','']);
                 var data1=xml2json(await getAjax(allstockurl.replace(/{code}/g,data.td[11]))).root.data.tr;
                 if(data1&&data1.length>1) data1=data1[0];
                 if(!data1||!data1.td) return;
                 if(data1.td[174]!='Y') row1.remove();
-                // if (data1.td[237]!='Y'&&data1.td[252]!='Y'&&!五类编码.includes(data1.td[0])) row.remove();
                 if(data1.td[237]=='Y'||data1.td[252]=='Y'||五类编码.includes(data1.td[0])){
-                    //                         addTableRows("#table1",[data.td[12],data.td[25],data.td[7],data.td[13],data.td[4]],etr);
-                    // row.find('td:eq(1)')[0].innerHTML=data.td[25];
-                    // row.find('td:eq(2)')[0].innerHTML=data.td[7];
-                    // row.find('td:eq(3)')[0].innerHTML=data.td[13];
-                    // row.find('td:eq(4)')[0].innerHTML=data.td[4];
-                    // count+=parseInt(data.td[4]);
                 }
                 if(data1.td[174]=='Y'){
                     row1.find('td:eq(1)')[0].innerHTML=data.td[25];
@@ -356,21 +312,6 @@ const start = async function() {
             })());
         }
         await Promise.all(fns);
-        // getAjax(fangyiurl,{data:{draw: 2,start: 0,length: 100,columns: '',order: '',cmd: 'refresh',sortColumn: '',sort: 'asc',reservation: reservation,storeId: 112208},contentType:'application/x-www-form-urlencoded',dataType: "json",type:'POST',}).then(list => {
-        //     $.each(list.data.reverse(),function(i,info){
-        //         addTableRows("#table3",[info.name,(new Date(info.buyTime)).toLocaleTimeString(),info.drugName, info.drugNum]);
-        //         count1+=parseInt(info.drugNum);
-        //     });
-        //     addTableRows("#table3",['总计','','',count1]);
-        // });
-        // getAjax(fangyi1url,{data:{"total":0,"pageNum":1,"pageSize":15,"pageSizes":[15,30,500,1000,5000,10000],"crteTimeArr":["2022-05-18T00:00:00.000","2022-05-19T00:00:00.000"]},contentType:'application/x-www-form-urlencoded',dataType: "json",type:'POST',}).then(list => {
-        //     $.each(list.data.reverse(),function(i,info){
-        //         addTableRows("#table3",[info.name,(new Date(info.buyTime)).toLocaleTimeString(),info.drugName, info.drugNum]);
-        //         count1+=parseInt(info.drugNum);
-        //     });
-        //     addTableRows("#table3",['总计','','',count1]);
-        // });
-        // addTableRows("#table1",['总计','','','',count]);
     }
 
 
@@ -422,7 +363,6 @@ const start = async function() {
             $('textarea').hide();
         }
         var fns=[];
-        //         var shop=xml2json(await getAjax(shopstockurl)).root.data.tr;
         var shop=xml2json(await getAjax(xiaoqiurl)).root.data.tr;
         var goods=JSON.parse(localStorage.getItem('9999-99-99')).goods;
 
@@ -431,16 +371,13 @@ const start = async function() {
         $.each(list,function(n,query){
             var info= goods.find((x, index,self)=> x[0]==query||x[4]==query);
             var datas=shop.filter((x, index,self) => {return self.findIndex(it=> {return query==it.td[0]||(it.td[1].indexOf(query)>-1&&it.td[0] == x.td[0])||((info&&info[0]==it.td[0])&&it.td[0] == x.td[0])})==index});
-            // var codes=shop.filter((it, index,self) =>query==it.td[0]||it.td[1].indexOf(query)>-1||(info&&info[0]==it.td[0]));
             var img=list.length<4&&info?`<img style="margin: auto;" src="http://www.t-x-m.com/barcode.asp?bc1=${info[4]}&bc2=10&bc3=3.5&bc4=0.6&bc5=1&bc6=1&bc7=Arial&bc8=15&bc9=1">`:'';
             if(datas.length==0 &&info) addTableRows("#table1",[n+1,query,info[1],info[2],info[3],'',img]);
             else if(datas.length==0 &&!info) addTableRows("#table1",[n+1,query,'','','','','']);
             $.each(datas,function(i,data){
-                // var row=addTableRows("#table1",[n+1,data.td[0],data.td[1],data.td[2],data.td[3],shop.filter((it, index,self) =>data.td[0]==it.td[0]).map((it,index) => `[${it.td[5]}:${it.td[7]}:${it.td[10]}]`),img]);
                 $.each(shop.filter((it, index,self) =>data.td[0]==it.td[0]),function(j,it){
                     addTableRows("#table1",[n+1,data.td[0],data.td[1],data.td[2],data.td[3],it.td[5],it.td[7],it.td[10],img]);
                 });
-                // if(五类编码.find((x, index,self)=> {return data.td[1].indexOf(x)>-1})) row.css('background','#ffec8b');
             });
         });
     }
@@ -457,10 +394,6 @@ const start = async function() {
                 k++;
             }
         });
-        // $.each(zhixiao,function(j,it){
-        //     // addTableRows("#table1",[it.td[0],it.td[1],it.td[2],it.td[6]]);
-        //     addTableRows("#table1",[it.td[0]]);
-        // });
     }
 
     const set1 = async () =>{
@@ -530,20 +463,6 @@ const start = async function() {
 
     const show5 = async () =>{
         var data,datas,list,list1=[],list2=[],qinghuo2=[],before,xiaoqi,jia,tui,startdate,enddate=formatDate(new Date());
-        //         if($('select').is(":hidden")){
-        //             $("select").empty();
-        //             $("select").append(`<option value=1>三月销售</option>`);
-        //             data=xml2json(await getAjax(guazhanglisturl)).root.data.tr;
-        //             if(data&&data.td) data=[data];
-        //             if(data&&data.length>0){
-        //                 $.each(data,function(i,tr){
-        //                     $("select").append(`<option value=${tr.td[2]}>${tr.td[1]}</option>`);
-        //                 });
-        //             }
-        //             $('select').show();
-        //         } else {
-        //             $('select').hide();
-        //             let jiage = getAjax(jiageurl);
         let qinghuo=x2j(await getAjax(qinghuourl.replace(/{enddate}/g,enddate).replace(/{startdate}/g,addDate(new Date(), -15))));
         qinghuo=qinghuo?qinghuo.reverse():{};
         let zongbu = getAjax(zongbuurl);
@@ -556,8 +475,6 @@ const start = async function() {
         let hexin = getAjax(hexinurl);
 
         let order;
-        //             if($('select').val()==1) order = getAjax(orderurl);
-        //             else order = getAjax(guazhangurl.replace(/{value}/g,$('select').val()),{dataType: "text"});
         order = getAjax(orderurl);
         if(qinghuo.length){
             for(const item of qinghuo){
@@ -576,13 +493,7 @@ const start = async function() {
         tuihuo=x2j(await tuihuo);
         bibei=x2j(await bibei);
         hexin=x2j(await hexin);
-        //             jiage=xml2json(await jiage).root.data.tr.sort((a, b) =>{return a.td[12]>b.td[12]?-1:1});
-        //             if($('select').val()==1){
         order=x2j(await order).map((item,index) => [item.td[8],item.td[9],item.td[10],item.td[18],item.td[12],item.td[19],item.td[24]]);
-        //             } else {
-        //                 order=await order;
-        //                 order=xml2json($.parseXML('<root>'+order.substring(order.indexOf('<tr sid='),order.indexOf('ds_djhz')-3).replace(/\\/g, "")+'</root>')).root.tr.map((item,index) => [item.td[5],item.td[6],item.td[7],item.td[12],item.td[21],item.td[13],item.td[14]]);
-        //             }
         if(sale&&sale.td) sale=[sale];
         if(sale2&&sale2.td) sale2=[sale2];
         if(sale2) list1=list1.concat(sale2.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it.td[5] == x.td[5]&&it.td[12] == x.td[12]})==index}).map((item,index) => {return [item.td[12],item.td[13],item.td[14],item.td[26],item.td[22],item.td[6]]}));
@@ -604,8 +515,6 @@ const start = async function() {
             qh=qh.length>0?`(请货${qh.length}次)`:'';
             var ck=list1.filter(it=> it[0] == item[0]);
             ck=ck.length>0?`(出库${ck.length}次)`:'';
-            //                 jia= jiage.filter((x, index,self)=> x.td[15]==item[0]);
-            //                 item[3]=jia.length>0?`${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))).toFixed(2)}/${jia[0].td[30]}=${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))/jia[0].td[30]).toFixed(2)}`:item[3];
             jia= goods.find((x, index,self)=> x[0]==item[0]);
             item[3]=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:item[3];
             var row=addTableRows("#table1",[i+1,item[0],item[1],item[2],item[3],item[4].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),item[5],item[6],xiaoqi,(xz+qh+ck)||'未请']);
@@ -621,8 +530,6 @@ const start = async function() {
             var qh=qinghuo2.filter(it=> it.td[11] == item[0]);
             qh=qh.length>0?`(请货${qh.length}次)`:'';
             item.push(qh);
-            //                 jia= jiage.filter((x, index,self)=> x.td[15]==item[0]);
-            //                 item[3]=jia.length>0?`${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))).toFixed(2)}/${jia[0].td[30]}=${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))/jia[0].td[30]).toFixed(2)}`:item[3];
             jia= goods.find((x, index,self)=> x[0]==item[0]);
             item[3]=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:item[3];
             item[4]=item[4].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12);
@@ -641,19 +548,14 @@ const start = async function() {
         $.each(bibei,function(i,item){
             xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item.td[2]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'';
             xiaoqi+= zongbu.filter((x, index,self)=> x.td[0]==item.td[2]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString();
-            //                 jia= jiage.filter((x, index,self)=> x.td[15]==item.td[2]);
-            //                 jia=jia.length>0?`${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))).toFixed(2)}/${jia[0].td[30]}=${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))/jia[0].td[30]).toFixed(2)}`:'';
             jia= goods.find((x, index,self)=> x[0]==item.td[2]);
             jia=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:'';
             var row=addTableRows("#table4",[i+1,item.td[2],item.td[3],item.td[4],jia,item.td[5].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),xiaoqi]);
         });
         addTableRows("#table5",['NO',"商品编号","商品名称","商品规格",'成本/售价',"生产厂家",'店存','总部效期：库存']);
         $.each(zongbu.filter((x, index,self)=> self.findIndex(it=> it.td[0]==x.td[0])==index&&list1.findIndex(it=> it[0] == x.td[0])<0&&order.findIndex(it=> it[0] == x.td[0])<0&&bibei.findIndex(it=> it.td[2] == x.td[0])<0),function(i,item){
-            // $.each(zongbu.filter((x, index,self)=> self.findIndex(it=> it.td[0]==x.td[0])==index&&shop.findIndex(it=> it.td[0] == x.td[0])<0&&list1.findIndex(it=> it[0] == x.td[0])<0&&order.findIndex(it=> it[0] == x.td[0])<0&&bibei.findIndex(it=> it.td[2] == x.td[0])<0),function(i,item){
             xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item.td[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'';
             xiaoqi+= zongbu.filter((x, index,self)=> x.td[0]==item.td[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString();
-            //                 jia= jiage.filter((x, index,self)=> x.td[15]==item.td[0]);
-            //                 jia=jia.length>0?`${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))).toFixed(2)}/${jia[0].td[30]}=${(jia[0].td[25]/jia.map(i=>i.td[0]).reduce((p,n)=>parseFloat(p)+parseFloat(n))/jia[0].td[30]).toFixed(2)}`:'';
             jia= goods.find((x, index,self)=> x[0]==item.td[0]);
             jia=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:'';
             var d=shop.find((it, index) => item.td[0]==it.td[0]);
@@ -662,15 +564,11 @@ const start = async function() {
         list2.sort((a, b) =>{return a[5]-b[5]}).forEach((item,i)=>{
             addTableRows("#table5",[i+1,item[0],item[1],item[2],item[3],item[4],item[5],item[6]]);
         });
-        // var test=shop.filter((x, index,self)=> zongbu.findIndex(it=> it.td[0] == x.td[0])<0);
-        // debugger;
-        //         }
     }
 
     const show6 = async () =>{
         addTableRows("#table1",["商品编号","商品名称","条码","商品规格","生产厂家","零售价","新零售价","日期","库存"]);
         var shop=xml2json(await getAjax(shopstockurl)).root.data.tr;
-        //         var storage=Object.keys(localStorage).sort((a, b) => a[0]>b[0]?-1:1).forEach(item=>{
         var storage=Object.keys(localStorage).sort().reverse().forEach(item=>{
             var data2=JSON.parse(localStorage[item]).data2;
             if(data2){
@@ -696,11 +594,9 @@ const start = async function() {
         $("table").empty("");
         switch(evt.currentTarget.id){
             case 'button1':
-                // await show(贵重编码);
                 await show();
                 break;
             case 'button2':
-                //                 await show(消杀编码);
                 break;
             case 'button3':
                 await show2();
@@ -748,7 +644,6 @@ const start = async function() {
             '诸', '左', '石', '崔', '龚', '裴', '荣', '翁', '段', '侯', '全', '仲', '伊', '刘',
             '叶', '司', '黎', '乔', '冉', '习', '向', '古', '廖', '耿', '巩', '冷', '曾', '荆'
         );
-        //.replace(/<div>[\u4E00-\u9FA5]{1,1}/g, "'").replace(/<\/div>/g, "',")
         var lastNames =  new Array(
             '子璇', '淼', '国栋', '夫子', '瑞堂', '甜', '敏', '尚', '国贤', '贺祥', '晨涛',
             '昊轩', '易轩', '益辰', '益帆', '益冉', '瑾春', '瑾昆', '春齐', '杨', '文昊',
@@ -845,8 +740,8 @@ const start = async function() {
         var firstLength = firstNames.length;
         var lastLength = lastNames.length;
 
-        var i = parseInt(  Math.random() * firstLength );
-        var j = parseInt(  Math.random() * lastLength );
+        var i = parseInt( Math.random() * firstLength );
+        var j = parseInt( Math.random() * lastLength );
         var name = firstNames[i] + lastNames[j];
         return name;
 

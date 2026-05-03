@@ -34,11 +34,11 @@ const start = async function() {
                 "小儿咳喘灵","小儿止咳","复方仔癀","金嗓子喉","铁笛","开喉剑喷雾剂","冬凌草","复方草珊瑚","复方冬凌草","复方甲氧那明","复方熊胆薄荷","黄氏响声",
                 "硫酸特布他林雾化吸入用","氢溴酸右美沙芬","金银花口服液","蒲地蓝",'二丁'];
     //佳和
-    var org='O36AZ790FID';
-    var whid='K36AZ7A6TF1';
+    //var org='O36AZ790FID';
+    //var whid='K36AZ7A6TF1';
     //碧湖
-    //var org='O2D8F1QQWYN';
-    // var whid='K2D8FI58U5V';
+    var org='O2D8F1QQWYN';
+    var whid='K2D8FI58U5V';
     //联投
     //var org='O2T3JNV5IXX';
     // var whid='K2T52DCW4CP';
@@ -97,7 +97,7 @@ const start = async function() {
         date1.setDate(date1.getDate() + days);
         return formatDate(date1);
     }
-    function xml2json(xml) {
+    function xml2json2(xml) {
         try {
             var obj = {};
             if (xml.children.length > 0) {
@@ -123,10 +123,132 @@ const start = async function() {
             console.log(e.message);
         }
     }
+
+    function xml2json(xml) {
+        try {
+            var obj = {};
+
+            // 处理属性
+            if (xml.attributes && xml.attributes.length > 0) {
+                for (var i = 0; i < xml.attributes.length; i++) {
+                    var attr = xml.attributes.item(i);
+                    obj[attr.nodeName] = attr.nodeValue;
+                }
+            }
+
+            // 处理子节点
+            if (xml.children.length > 0) {
+                for (var i = 0; i < xml.children.length; i++) {
+                    var item = xml.children.item(i);
+                    var nodeName = item.nodeName;
+                    var child = xml2json(item);
+
+                    if (typeof obj[nodeName] === "undefined") {
+                        obj[nodeName] = child;
+                    } else {
+                        if (!Array.isArray(obj[nodeName])) {
+                            obj[nodeName] = [obj[nodeName]];
+                        }
+                        obj[nodeName].push(child);
+                    }
+                }
+            } else {
+                // 无子节点时，文本内容与属性合并
+                var text = xml.textContent;
+                if (Object.keys(obj).length === 0) {
+                    obj = text;
+                } else {
+                    obj["#text"] = text;
+                }
+            }
+            return obj;
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+
     function x2j(xml){
-        var datas =xml2json(xml).root.data.tr;
+        var root=xml2json(xml).root;
+        var datas =root.data.tr;
         if(datas&&datas.td) datas=[datas];
         return datas;
+    }
+    function x2j2(xml,cols=null){
+        var root=xml2json(xml).root;
+        var datas =root.data.tr;
+        var fields=root.fields.f;
+        if(datas&&datas.td) datas=[datas];
+        if(datas&&cols!=null){
+            var items = cols.map(item => {
+                const index = fields.findIndex(it => it.id == item);
+                return index > -1 ? index : 0;
+            });
+            datas=datas.map(data =>{
+                var d=[];
+                items.forEach(it=>{
+                    d.push(data.td[it]);
+                });
+                return d;
+            })
+        }
+        return datas;
+    }
+
+    function parseXmlToRecords(xmlString, requiredFields = null) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+        // 1. 提取所有字段定义
+        const fieldNodes = xmlDoc.querySelectorAll("fields > f");
+        const allFields = Array.from(fieldNodes).map(f => f.getAttribute("id"));
+
+        // 2. 处理字段筛选逻辑
+        let fieldIndicesToKeep = [];
+        let fieldsToKeep = [];
+
+        if (requiredFields) {
+            // 统一转为数组（支持逗号分隔字符串）
+            const requiredList = Array.isArray(requiredFields)
+            ? requiredFields
+            : requiredFields.split(',').map(s => s.trim());
+
+            // 根据原始顺序保留需要的字段（确保顺序与 XML 中一致）
+            allFields.forEach((fieldName, index) => {
+                if (requiredList.includes(fieldName)) {
+                    fieldsToKeep.push(fieldName);
+                    fieldIndicesToKeep.push(index);
+                }
+            });
+        } else {
+            // 不传参时保留全部字段
+            fieldsToKeep = allFields;
+            fieldIndicesToKeep = allFields.map((_, i) => i);
+        }
+
+        // 3. 遍历数据行，仅提取需要的列
+        const rows = xmlDoc.querySelectorAll("data > tr");
+        const records = Array.from(rows).map(tr => {
+            const tds = tr.querySelectorAll("td");
+            const obj = {};
+
+            fieldIndicesToKeep.forEach((originalIndex, i) => {
+                const fieldName = fieldsToKeep[i];
+                const td = tds[originalIndex];
+                let value = td ? td.textContent : "";
+
+                // 根据字段类型进行转换（可选）
+                const fNode = fieldNodes[originalIndex];
+                const dt = fNode.getAttribute("dt");
+                if (dt === "integer") value = parseInt(value, 10) || 0;
+                else if (dt === "decimal") value = parseFloat(value) || 0;
+
+                obj[fieldName] = value;
+            });
+
+            return obj;
+        });
+
+        return records;
     }
     function addTableRows(tb,rows,etr){
         var tables = $(tb);
@@ -462,8 +584,9 @@ const start = async function() {
     }
 
     const show5 = async () =>{
-        var data,datas,list,list1=[],list2=[],qinghuo2=[],before,xiaoqi,jia,tui,startdate,enddate=formatDate(new Date());
-        let qinghuo=x2j(await getAjax(qinghuourl.replace(/{enddate}/g,enddate).replace(/{startdate}/g,addDate(new Date(), -15))));
+        var datas,list,list1=[],list2=[],qinghuo2=[],before,xiaoqi,jia,tui,startdate,enddate=formatDate(new Date());
+        // let qinghuo=x2j(await getAjax(qinghuourl.replace(/{enddate}/g,enddate).replace(/{startdate}/g,addDate(new Date(), -15))));
+        let qinghuo=x2j2(await getAjax(qinghuourl.replace(/{enddate}/g,enddate).replace(/{startdate}/g,addDate(new Date(), -15))),["BillNo","Dates"]);
         qinghuo=qinghuo?qinghuo.reverse():{};
         let zongbu = getAjax(zongbuurl);
         let tuihuo = getAjax(tuihuourl);
@@ -473,33 +596,46 @@ const start = async function() {
         let shop=getAjax(shopstockurl);
         let bibei = getAjax(bibeiurl);
         let hexin = getAjax(hexinurl);
-
-        let order;
-        order = getAjax(orderurl);
+        let order = getAjax(orderurl);
         if(qinghuo.length){
             for(const item of qinghuo){
-                data=xml2json(await getAjax(qinghuo2url.replace(/{no}/g,item.td[0]))).root.data.tr;
-                if(data&&data.td) data=[data];
+                // data=xml2json(await getAjax(qinghuo2url.replace(/{no}/g,item[0]))).root.data.tr;
+                // if(data&&data.td) data=[data];
+                var data=x2j2(await getAjax(qinghuo2url.replace(/{no}/g,item[0])),['GoodsCode']);
                 qinghuo2=qinghuo2.concat(data);
-                if(qinghuo2.length>20&&!startdate) startdate=formatDate(new Date(item.td[2]));
+                if(qinghuo2.length>20&&!startdate) startdate=formatDate(new Date(item[1]));
             }
         }
+        // sale=x2j(await sale);
+        // sale2=x2j(await sale2);
+        // diaobo=x2j2(await diaobo);
+        // shop=x2j2(await shop);
+        // zongbu=x2j2(await zongbu);
+        // tuihuo=x2j2(await tuihuo);
+        // bibei=x2j2(await bibei);
+        // hexin=x2j2(await hexin);
 
-        sale=x2j(await sale);
-        sale2=x2j(await sale2);
-        diaobo=x2j(await diaobo);
-        shop=x2j(await shop);
-        zongbu=x2j(await zongbu);
-        tuihuo=x2j(await tuihuo);
-        bibei=x2j(await bibei);
-        hexin=x2j(await hexin);
-        order=x2j(await order).map((item,index) => [item.td[8],item.td[9],item.td[10],item.td[18],item.td[12],item.td[19],item.td[24]]);
-        if(sale&&sale.td) sale=[sale];
-        if(sale2&&sale2.td) sale2=[sale2];
-        if(sale2) list1=list1.concat(sale2.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it.td[5] == x.td[5]&&it.td[12] == x.td[12]})==index}).map((item,index) => {return [item.td[12],item.td[13],item.td[14],item.td[26],item.td[22],item.td[6]]}));
-        if(sale) list1=list1.concat(sale.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it.td[5] == x.td[5]&&it.td[12] == x.td[12]})==index}).map((item,index) => {return [item.td[12],item.td[13],item.td[14],item.td[26],item.td[22],item.td[6]]}));
-        if(diaobo&&diaobo.td) diaobo=[diaobo];
-        if(diaobo) list1=list1.concat(diaobo.filter((x, index,self)=> {return self.findIndex(it=> {return it.td[9] == x.td[9]&&it.td[0] == x.td[0]})==index}).map((item,index) => {return [item.td[9],item.td[10],item.td[11],item.td[20]+'???',item.td[14],'']}));
+
+        // order=x2j(order).map((item,index) => [item.td[8],item.td[9],item.td[10],item.td[18],item.td[12],item.td[19],item.td[24]]);
+        order=x2j2(await order,["goodscode","goodsname","goodsspec","RetailP","manufacturer","placenum","zbkc"]);
+        // if(sale&&sale.td) sale=[sale];
+        // if(sale2&&sale2.td) sale2=[sale2];
+        sale=x2j2(await sale,["goodscode","goodsname","goodsspec","retailp","Manufacturer","dates","billcode","num"]);
+        sale2=x2j2(await sale2,["goodscode","goodsname","goodsspec","retailp","Manufacturer","dates","billcode","num"]);
+        diaobo=x2j2(await diaobo,["goodscode","goodsname","GoodsSpec","TaxAmount","Manufacturer","billcode"]);
+        shop=x2j2(await shop,["goodscode","stornum"]);
+        zongbu=x2j2(await zongbu,["goodscode","valdate","placenum","goodsname","goodsspec","manufacturer"]);
+        tuihuo=x2j2(await tuihuo,["goodscode","valdate","placenum","goodsname","goodsspec","manufacturer"]);
+        bibei=x2j2(await bibei,["goodscode","goodsname","goodsspec","manufacturer"]);
+        hexin=x2j2(await hexin,["goodscode","goodsname","goodsspec","manufacturer"]);
+
+        // if(sale2) list1=list1.concat(sale2.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it.td[5] == x.td[5]&&it.td[12] == x.td[12]})==index}).map((item,index) => {return [item.td[12],item.td[13],item.td[14],item.td[26],item.td[22],item.td[6]]}));
+        if(sale2) list1=list1.concat(sale2.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it[6] == x[6]&&it[0] == x[0]})==index}).map((item,index) => {return [item[0],item[1],item[2],item[3],item[4],item[5]]}));
+        // if(sale) list1=list1.concat(sale.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it.td[5] == x.td[5]&&it.td[12] == x.td[12]})==index}).map((item,index) => {return [item.td[12],item.td[13],item.td[14],item.td[26],item.td[22],item.td[6]]}));
+        if(sale) list1=list1.concat(sale.reverse().filter((x, index,self)=> {return self.findIndex(it=> {return it[6] == x[6]&&it[0] == x[0]})==index}).map((item,index) => {return [item[0],item[1],item[2],item[3],item[4],item[5]]}));
+        // if(diaobo&&diaobo.td) diaobo=[diaobo];
+        // if(diaobo) list1=list1.concat(diaobo.filter((x, index,self)=> {return self.findIndex(it=> {return it.td[9] == x.td[9]&&it.td[0] == x.td[0]})==index}).map((item,index) => {return [item.td[9],item.td[10],item.td[11],item.td[20]+'???',item.td[14],'']}));
+        if(diaobo) list1=list1.concat(diaobo.filter((x, index,self)=> {return self.findIndex(it=> {return it[0] == x[0]&&it[5] == x[5]})==index}).map((item,index) => {return [item[0],item[1],item[2],item[3]+'???',item[4],'']}))
         addTableRows("#table1",['NO','编号','名称','规格','成本/售价',"生产厂家",'门店库存','总部库存','总部效期：库存','状态']);
         var date=Object.keys(localStorage).sort().reverse().find((x, index,self)=> startdate>x);
         console.log(date);
@@ -508,10 +644,10 @@ const start = async function() {
         else before=[];
         var goods=JSON.parse(localStorage.getItem('9999-99-99')).goods;
         $.each(order,function(i,item){
-            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'';
-            xiaoqi+= zongbu.filter((x, index,self)=> x.td[0]==item[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString();
+            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it[1]}:${it[2]}]</font>`:`[退${it[1]}:${it[20]}]`).toString():'';
+            xiaoqi+= zongbu.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it[1]}:${it[2]}]</font>`:`[${it[1]}:${it[2]}]`).toString();
             var xz=before.findIndex(it=> it.td[8] == item[0])>-1?'':'(新增)';
-            var qh=qinghuo2.filter(it=> it.td[11] == item[0]);
+            var qh=qinghuo2.filter(it=> it[0] == item[0]);
             qh=qh.length>0?`(请货${qh.length}次)`:'';
             var ck=list1.filter(it=> it[0] == item[0]);
             ck=ck.length>0?`(出库${ck.length}次)`:'';
@@ -522,12 +658,12 @@ const start = async function() {
         });
         addTableRows("#table2",["商品编号","商品名称","商品规格","成本/售价","生产厂家",'最后销售','门店库存','总部效期：库存','状态']);
         list1=list1.map(item=>{
-            var s=shop.find((it, index) => item[0]==it.td[0]),count=[];
-            if(sale2) count=sale2.filter(it=> it.td[12] == item[0]).map(i=>i.td[4]);
+            var s=shop.find((it, index) => item[0]==it[0]),count=[];
+            if(sale2) count=sale2.filter(it=> it[0] == item[0]).map(i=>i[7]);
             count.length>0?count=count.reduce((p,n)=>parseInt(p)+parseInt(n)):count=0;
-            item.push(s?s.td[4]-count||0:0);
-            item.push((tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'')+zongbu.filter((x, index,self)=> x.td[0]==item[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString());
-            var qh=qinghuo2.filter(it=> it.td[11] == item[0]);
+            item.push(s?s[1]-count||0:0);
+            item.push((tuihuo?tuihuo.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it[1]}:${it[2]}]</font>`:`[退${it[1]}:${it[2]}]`).toString():'')+zongbu.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it[1]}:${it[2]}]</font>`:`[${it[1]}:${it[2]}]`).toString());
+            var qh=qinghuo2.filter(it=> it[0] == item[0]);
             qh=qh.length>0?`(请货${qh.length}次)`:'';
             item.push(qh);
             jia= goods.find((x, index,self)=> x[0]==item[0]);
@@ -543,23 +679,23 @@ const start = async function() {
             item[8]?row.css('background','#ffec8b'):true;
         });
         addTableRows("#table4",['NO',"商品编号","商品名称","商品规格",'成本/售价',"生产厂家",'总部效期：库存']);
-        bibei=bibei.concat(hexin).filter(item=> order.findIndex(it=> it[0] == item.td[2])<0);
+        bibei=bibei.concat(hexin).filter(item=> order.findIndex(it=> it[0] == item[0])<0);
         // bibei=bibei.concat(hexin).filter(item=> list1.findIndex(it=> it[0] == item.td[2])<0&&order.findIndex(it=> it[0] == item.td[2])<0);
         $.each(bibei,function(i,item){
-            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item.td[2]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'';
-            xiaoqi+= zongbu.filter((x, index,self)=> x.td[0]==item.td[2]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString();
-            jia= goods.find((x, index,self)=> x[0]==item.td[2]);
+            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it[1]}:${it[2]}]</font>`:`[退${it[1]}:${it[2]}]`).toString():'';
+            xiaoqi+= zongbu.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it[1]}:${it[2]}]</font>`:`[${it[1]}:${it[2]}]`).toString();
+            jia= goods.find((x, index,self)=> x[0]==item[0]);
             jia=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:'';
-            var row=addTableRows("#table4",[i+1,item.td[2],item.td[3],item.td[4],jia,item.td[5].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),xiaoqi]);
+            var row=addTableRows("#table4",[i+1,item[0],item[1],item[2],jia,item[3].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),xiaoqi]);
         });
         addTableRows("#table5",['NO',"商品编号","商品名称","商品规格",'成本/售价',"生产厂家",'店存','总部效期：库存']);
-        $.each(zongbu.filter((x, index,self)=> self.findIndex(it=> it.td[0]==x.td[0])==index&&list1.findIndex(it=> it[0] == x.td[0])<0&&order.findIndex(it=> it[0] == x.td[0])<0&&bibei.findIndex(it=> it.td[2] == x.td[0])<0),function(i,item){
-            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x.td[0]==item.td[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it.td[7]}:${it.td[10]}]</font>`:`[退${it.td[7]}:${it.td[10]}]`).toString():'';
-            xiaoqi+= zongbu.filter((x, index,self)=> x.td[0]==item.td[0]).map((it,index) => addDate(new Date(it.td[7]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it.td[7]}:${it.td[10]}]</font>`:`[${it.td[7]}:${it.td[10]}]`).toString();
-            jia= goods.find((x, index,self)=> x[0]==item.td[0]);
+        $.each(zongbu.filter((x, index,self)=> self.findIndex(it=> it[0]==x[0])==index&&list1.findIndex(it=> it[0] == x[0])<0&&order.findIndex(it=> it[0] == x[0])<0&&bibei.findIndex(it=> it[0] == x[0])<0),function(i,item){
+            xiaoqi= tuihuo?tuihuo.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[退${it[1]}:${it[2]}]</font>`:`[退${it[1]}:${it[2]}]`).toString():'';
+            xiaoqi+= zongbu.filter((x, index,self)=> x[0]==item[0]).map((it,index) => addDate(new Date(it[1]), -365)<formatDate(new Date())?`<font color="#FF0000">[${it[1]}:${it[2]}]</font>`:`[${it[1]}:${it[2]}]`).toString();
+            jia= goods.find((x, index,self)=> x[0]==item[0]);
             jia=jia?`${parseFloat(jia[6])}/${parseFloat(jia[7])}=${(parseFloat(jia[6])/parseFloat(jia[7])).toFixed(2)}`:'';
-            var d=shop.find((it, index) => item.td[0]==it.td[0]);
-            list2.push([item.td[0],item.td[1],item.td[2],jia,item.td[3].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),d?d.td[4]:0,xiaoqi]);
+            var d=shop.find((it, index) => item[0]==it[0]);
+            list2.push([item[0],item[3],item[4],jia,item[5].replace(/(\u80a1\u4efd)|(\u6709\u9650)|(\u516c\u53f8)|(\u836f\u4e1a)|(\u5236\u836f)|(\u533b\u836f)|(\u96c6\u56e2)/g, "").substr(0,12),d?d[1]:0,xiaoqi]);
         });
         list2.sort((a, b) =>{return a[5]-b[5]}).forEach((item,i)=>{
             addTableRows("#table5",[i+1,item[0],item[1],item[2],item[3],item[4],item[5],item[6]]);
